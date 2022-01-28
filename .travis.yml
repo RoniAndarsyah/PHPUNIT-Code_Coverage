@@ -1,0 +1,40 @@
+language: php
+
+php:
+  - "5.3"
+
+env:
+  global:
+    - secure: MKfqW1nyD+8OKBsa6OwXOY21hvlt60P1Mh3AAsfcErkqWlZ89sDFovjd4mLHiAHqfyjtbV5Dlqs0Z792/D5R+koV2HJz2npE281qujctdAN0XSy7oe7ok0bl17uPtV2qyUMrAnfj6iPN6Dp47Q5sCZ6pWwS7Cmsr4PPBlSKjS4E=
+    - APP_ENV=travis
+
+# Services to Enable
+services:
+
+# Branches to be built or not
+branches:
+  # Blacklist these branches
+  except:
+    - gh-pages
+
+before_install:
+  - git submodule update --init --recursive
+
+install:
+   - composer install
+
+# before_script:
+
+script:
+  - sh -c "./phpunit-runner.sh;"
+
+# after_success:
+
+# after_failure:
+
+after_script:
+  - sh -c "./woodhouse.sh;"
+
+# Control email notifications
+notifications:
+  email: false
